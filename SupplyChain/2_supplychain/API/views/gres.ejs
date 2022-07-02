@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login Example</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <% if(code==0){ %>
+                <form action="/recepit" method="post" name="Login_Form" class="form-signin">
+                    <h3 class="form-signin-heading">Get Recepit</h3>
+    
+                    <input type="text" class="form-control" name="email" placeholder="orderId" required="" autofocus="" />
+    
+                    <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+                </form>
+              <% } else{ %>  
+                <form action="/recepit" method="post" name="Login_Form" class="form-signin">
+                    <h3 class="form-signin-heading">Get Recepit</h3>
+    
+                    <input type="text" class="form-control" name="email" placeholder="orderId" required="" autofocus="" />
+    
+                    <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
+                </form>
+                <div backgroundcolor="grey">
+                    <h3> OrderId : <%=id%> <br> Supplier : <%=supplier%>  <br>Part price : <%=price%> <br> Part Name : <%=pname%> <br>Payment Status:<%=payment%></h3>
+                    
+                     <form action="/payment" method="post">
+                <input type="text" class="form-control" name="orderid" placeholder="orderId" required="" autofocus="" value='<%=id%>' />
+                <input type="text" class="form-control" name="reciver" placeholder="orderId" required="" autofocus="" value='<%=supplier%>' />
+                <input type="text" class="form-control" name="price" placeholder="orderId" required="" autofocus="" value='<%=price%>' />
+                <button type="submit">pay</button>
+            </form>
+                    <% } %>
+                </div>
+               
+                
+         
+           
+        </div>
+    </div>
+</body>
+
+</html>

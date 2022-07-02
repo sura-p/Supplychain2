@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.33/dist/web3.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="teal">
+            <div class="nav-wrapper">
+                <!-- <a href="#" class="brand-logo right">Logo</a> -->
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="/makeorder">make order</a></li>
+                    <li><button type="submit" id="metamask">connect to metamask</button></li>
+                    <li><a href="/recepitpage">getRecepit</a></li>
+                </ul>
+            </div>
+        </nav>
+        <h2>Car Factory</h2>
+        <div class="row">
+            <div class="col s6">
+                <label>Address: </label>
+                <p id="car-factory-address"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <div id="car-part-list" class="collection with-header">
+                    <p class="collection-header">Parts Owned</p>
+                </div>
+            </div>
+            <div class="col s6">
+                <form action="/inprocess" method="post">
+                <label>orderID: </label><input type="text" name="orderId" id="create-car-serial-number" placeholder="Car Serial Number">
+                <label>Serial Number: </label><input type="text" name="srno" id="create-car-serial-number" placeholder="Car Serial Number">
+                <label>Product Type: </label><input type="text" name="producttype" id="create-car-serial-number" placeholder="Car Serial Number">
+                <label>Price: </label><input type="text" name="price" id="create-car-serial-number" placeholder="Car Serial Number">
+                <label>MFG DATE: </label><input type="text" name="mfgdate" id="create-car-serial-number" placeholder="Car Serial Number">
+                <label>Part name: </label><input type="text" name="part1" id="create-car-serial-number" placeholder="Car Serial Number">
+                <label>part name: </label><input type="text" name="part2" id="create-car-serial-number" placeholder="Car Serial Number">
+                <button id="build-car" class="waves-effect waves-light btn">Build Car</button>
+            </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6">
+                <div id="car-list" class="collection with-header">
+                    <p class="collection-header">Cars Owned</p>
+                </div>
+            </div>
+            <div class="col s6">
+                <div id="car-list-details">
+                    <label>Manufacturer Address:</label>
+                    <p id="car-details-address"></p>
+                    <label>Serial Number:</label>
+                    <p id="car-details-serial-num"></p>
+                    <label>Parts:</label>
+                    <p id="car-details-parts"></p>
+                    <label>Creation Date:</label>
+                    <p id="car-details-creation-date"></p>
+                    <input id="car-change-ownership-input" type="text" placeholder="Insert address">
+                    <button id="car-change-ownership-btn" class="waves-effect waves-light btn">Change Ownership</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let metamask = document.getElementById('metamask');
+metamask.addEventListener("click", async function(event){
+    if (window.ethereum) {
+        try {
+          
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                 document.getElementById('car-factory-address').innerHTML =accounts[0]
+        } catch (error) {
+          if (error.code === 4001) {
+            console.log('user rejected');
+          }
+      
+         
+        }
+      }
+});
+
+</script>
+</html>

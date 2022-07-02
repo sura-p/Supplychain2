@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply Chain Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.33/dist/web3.min.js"></script>
+    
+</head>
+
+<body>
+    <div class="container">
+        <nav class="teal">
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo right">Logo</a> -->
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="/supplierorder">getOrderList</a></li>
+                    <li><a href="car_factory.html">acceptOrder</a></li>
+                    <!-- <li><a href="/orderdetail">part Recepit</a></li> -->
+                    <li><button type="submit" id="metamask">connect to metamask</button></li>
+                </ul>
+            </div>
+        </nav>
+        <h2 id="supplieradd">supplier</h2>
+        <div class="row">
+            <div class="col s6">
+                <label>Address: </label>
+                <p id="part-factory-address"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <form action="/supplierbuild" method="post">
+                    <label for="orderid">OrderID</label>
+                    <input type="text" name="orderid" id="orderid" placeholder="orderid" >
+                    <label>Serial Number: </label><input type="text" id="srno" name="srno" placeholder="Part Serial Number">
+                    <label>Price: </label><input type="text" id="price" name="price" placeholder="Part Serial Number">
+                    <label>Manufacturer Date: </label><input type="text" id="mfgdate" name="mfgdate" placeholder="Part Serial Number">
+
+                
+                    <button id="build-part" class="waves-effect waves-light btn">Build Part</button>
+
+                </form>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div id="part-list" class="collection with-header">
+                <p class="collection-header">Parts Owned</p>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                  
+                    <% for (var i = 0; i < newListItems.length; i++) { %>
+                        <li> <%= newListItems[i] %> </li>
+                    <% } %>
+               
+            </ul>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <div id="part-list-details">
+                   
+                    <form action="/sell" method="post">
+                    <input id="part-change-ownership-input" type="text" placeholder="Insert address" name="transferTo">
+                    <input id="part-change-ownership-input" type="text" placeholder="Insert address" name="part_Hash">
+                    
+                    <input id="part-change-ownership-input" type="text" placeholder="Insert address" name="Ohash">
+                    
+                    <button id="part-change-ownership-btn" class="waves-effect waves-light btn">transferManufacturer</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let metamask = document.getElementById('metamask');
+metamask.addEventListener("click", async function(event){
+    if (window.ethereum) {
+        try {
+          
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                 document.getElementById('part-factory-address').innerHTML =accounts[0]
+        } catch (error) {
+          if (error.code === 4001) {
+            console.log('user rejected');
+          }
+      
+         
+        }
+      }
+});
+
+</script>
+</html>
